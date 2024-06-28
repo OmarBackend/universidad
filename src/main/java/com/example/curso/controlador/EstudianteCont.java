@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/estudiantes")
@@ -82,7 +83,7 @@ public class EstudianteCont {
     public ResponseEntity<List<Curso>> listarCursosDeEstudiante(@PathVariable Long id) {
         Estudiante estudiante = estudianteServ.obtenerPorId(id);
         if (estudiante != null) {
-            List<RegistroCurso> registrosCursos = estudiante.getRegistrosCursos();
+            Set<RegistroCurso> registrosCursos = estudiante.getRegistrosCursos();
             List<Curso> cursos = new ArrayList<>();
             for (RegistroCurso registroCurso : registrosCursos) {
                 cursos.add(registroCurso.getCurso());

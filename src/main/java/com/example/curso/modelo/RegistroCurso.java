@@ -1,13 +1,17 @@
 package com.example.curso.modelo;
+
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "registro_curso")
+@JsonIdentityInfo(scope = RegistroCurso.class, generator = ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class RegistroCurso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     private LocalDate fechaMatricula;
     private LocalDate fechaDesmatricula;
@@ -23,10 +27,9 @@ public class RegistroCurso {
     public RegistroCurso() {
     }
 
-    public RegistroCurso(Long id, LocalDate fechaMatricula, LocalDate fechaDesmatricula, Estudiante estudiante, Curso curso) {
+    public RegistroCurso(Long id, LocalDate fechaMatricula, Estudiante estudiante, Curso curso) {
         this.id = id;
         this.fechaMatricula = fechaMatricula;
-        this.fechaDesmatricula = fechaDesmatricula;
         this.estudiante = estudiante;
         this.curso = curso;
     }
@@ -35,39 +38,27 @@ public class RegistroCurso {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public LocalDate getFechaMatricula() {
         return fechaMatricula;
-    }
-
-    public void setFechaMatricula(LocalDate fechaMatricula) {
-        this.fechaMatricula = fechaMatricula;
     }
 
     public LocalDate getFechaDesmatricula() {
         return fechaDesmatricula;
     }
 
-    public void setFechaDesmatricula(LocalDate fechaDesmatricula) {
-        this.fechaDesmatricula = fechaDesmatricula;
-    }
-
     public Estudiante getEstudiante() {
         return estudiante;
-    }
-
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
     }
 
     public Curso getCurso() {
         return curso;
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
+    public void setFechaMatricula(LocalDate fechaMatricula) {
+        if(fechaMatricula != null) this.fechaMatricula = fechaMatricula;
+    }
+
+    public void setFechaDesmatricula(LocalDate fechaDesmatricula) {
+        if(fechaDesmatricula != null) this.fechaDesmatricula = fechaDesmatricula;
     }
 }

@@ -3,23 +3,29 @@ package com.example.curso.modelo;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "estudiante")
 public class Estudiante {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "nombre")
     private String nombre;
+
     @Column(name = "apellido")
     private String apellido;
+
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
+
     @OneToMany(mappedBy = "estudiante")
-    private List<RegistroCurso> cursos;
+    private Set<RegistroCurso> registroCursos = new HashSet<>();
 
     public Estudiante(){
 
@@ -33,12 +39,12 @@ public class Estudiante {
         this.nombre = nombre;
     }
 
-    public Estudiante(Long id, String nombre, String apellido, LocalDate fechaNacimiento, List<RegistroCurso> cursos) {
+    public Estudiante(Long id, String nombre, String apellido, LocalDate fechaNacimiento, Set<RegistroCurso> registroCursos) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
-        this.cursos = cursos;
+        this.registroCursos = registroCursos;
     }
 
     public Long getId() {
@@ -73,12 +79,12 @@ public class Estudiante {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public List<RegistroCurso> getRegistrosCursos() {
-        return cursos;
+    public Set<RegistroCurso> getRegistrosCursos() {
+        return registroCursos;
     }
 
-    public void setCursos(List<RegistroCurso> cursos) {
-        this.cursos = cursos;
+    public void setCursos(Set<RegistroCurso> cursos) {
+        this.registroCursos = cursos;
     }
 
 
