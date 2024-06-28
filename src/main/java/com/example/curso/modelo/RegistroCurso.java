@@ -1,19 +1,20 @@
 package com.example.curso.modelo;
 
-import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "registro_curso")
-@JsonIdentityInfo(scope = RegistroCurso.class, generator = ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class RegistroCurso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long id;
+
+    @Column(name = "fecha_matricula")
     private LocalDate fechaMatricula;
+
+    @Column(name = "fecha_desmatricula")
     private LocalDate fechaDesmatricula;
 
     @ManyToOne

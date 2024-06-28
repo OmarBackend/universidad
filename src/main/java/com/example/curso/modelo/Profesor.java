@@ -13,13 +13,17 @@ public class Profesor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "nombre")
     private String nombre;
+
     @Column(name = "apellido")
     private String apellido;
+
     @Column(name = "titulos_academicos")
     @OneToMany(mappedBy = "profesor")
     private List<TituloAcademico> titulosAcademicos;
+
     @Column(name = "fecha_inicio_trabajo")
     private LocalDate fechaInicioTrabajo;
 

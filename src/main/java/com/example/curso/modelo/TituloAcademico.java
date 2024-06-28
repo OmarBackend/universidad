@@ -8,11 +8,14 @@ public class TituloAcademico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "titulo")
     private String titulo;
-@ManyToOne
-@JoinColumn(name = "profesor_id")
+
+    @ManyToOne
+    @JoinColumn(name = "profesor_id")
     private Profesor profesor;
+
     public TituloAcademico() {
     }
 
