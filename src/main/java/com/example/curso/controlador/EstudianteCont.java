@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/estudiantes")
@@ -72,34 +73,6 @@ public class EstudianteCont {
         boolean eliminado = estudianteServ.eliminarEstudiante(id);
         if (eliminado) {
             return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    // Endpoint adicional para listar los cursos de un estudiante
-    @GetMapping("/{id}/cursos")
-    public ResponseEntity<List<Curso>> listarCursosDeEstudiante(@PathVariable Long id) {
-        Estudiante estudiante = estudianteServ.obtenerPorId(id);
-        if (estudiante != null) {
-            List<RegistroCurso> registrosCursos = estudiante.getRegistrosCursos();
-            List<Curso> cursos = new ArrayList<>();
-            for (RegistroCurso registroCurso : registrosCursos) {
-                cursos.add(registroCurso.getCurso());
-            }
-            return ResponseEntity.ok(cursos);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    // Endpoint adicional para validar si un estudiante es mayor de 18 años
-    @GetMapping("/{id}/mayor-edad")
-    public ResponseEntity<Boolean> validarMayorEdad(@PathVariable Long id) {
-        Estudiante estudiante = estudianteServ.obtenerPorId(id);
-        if (estudiante != null) {
-            boolean esMayorDeEdad = estudianteServ.esMayorDeEdad(estudiante.getFechaNacimiento());
-            return ResponseEntity.ok(esMayorDeEdad);
         } else {
             return ResponseEntity.notFound().build();
         }
