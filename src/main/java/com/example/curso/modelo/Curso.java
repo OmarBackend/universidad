@@ -2,48 +2,59 @@ package com.example.curso.modelo;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "Curso")
+@Table(name = "curso")
 public class Curso {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "nombre")
     private String nombre;
+
     @Column(name = "descripcion")
     private String descripcion;
+
     @Column(name = "materia")
     private String materia;
-
 
     @ManyToOne
     @JoinColumn(name = "profesor_id")
     private Profesor profesor;
 
-    @OneToMany(mappedBy = "curso")
-    private List<RegistroCurso> estudiantes;
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
+    private Set<RegistroCurso> registrosEstudiante = new HashSet<>();
 
     public Curso() {
     }
 
-    public Curso(Long id, String nombre, String descripcion, String materia, Profesor profesor, List<RegistroCurso> estudiantes) {
+    public Curso(Long id, String nombre, String descripcion, String materia, Profesor profesor) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.materia = materia;
-        this.profesor = profesor;
-        this.estudiantes = estudiantes;
+//        this.profesor = profesor;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public String getMateria() {
+        return materia;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
     }
 
     public String getNombre() {
@@ -51,38 +62,18 @@ public class Curso {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
+        if(nombre != null) this.nombre = nombre;
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getMateria() {
-        return materia;
+        if(descripcion != null) this.descripcion = descripcion;
     }
 
     public void setMateria(String materia) {
-        this.materia = materia;
-    }
-
-    public Profesor getProfesor() {
-        return profesor;
+        if(materia != null) this.materia = materia;
     }
 
     public void setProfesor(Profesor profesor) {
-        this.profesor = profesor;
-    }
-
-    public List<RegistroCurso> getEstudiantes() {
-        return estudiantes;
-    }
-
-    public void setEstudiantes(List<RegistroCurso> estudiantes) {
-        this.estudiantes = estudiantes;
+        if(profesor != null) this.profesor = profesor;
     }
 }
