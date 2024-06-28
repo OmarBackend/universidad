@@ -31,20 +31,11 @@ public class Estudiante {
 
     }
 
-
     public Estudiante(Long id, LocalDate fechaNacimiento, String apellido, String nombre) {
         this.id = id;
         this.fechaNacimiento = fechaNacimiento;
         this.apellido = apellido;
         this.nombre = nombre;
-    }
-
-    public Estudiante(Long id, String nombre, String apellido, LocalDate fechaNacimiento, Set<RegistroCurso> registroCursos) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
-        this.registroCursos = registroCursos;
     }
 
     public Long getId() {
@@ -77,14 +68,6 @@ public class Estudiante {
 
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public Set<RegistroCurso> getRegistrosCursos() {
-        return registroCursos;
-    }
-
-    public void setCursos(Set<RegistroCurso> cursos) {
-        this.registroCursos = cursos;
     }
 
 
