@@ -1,6 +1,8 @@
 package com.example.curso.servicios;
 
 import com.example.curso.modelo.Profesor;
+import com.example.curso.repositorios.ProfesorRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -9,30 +11,30 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class ProfesorServicio {
+public class ProfesorServ {
 
     @Autowired
-    private ProfesorRepositorio profesorRepositorio;
+    private ProfesorRepo profesorRepo;
 
     // Método para crear un nuevo profesor
     public Profesor crearProfesor(Profesor profesor) {
-        return profesorRepositorio.save(profesor);
+        return profesorRepo.save(profesor);
     }
 
     // Método para obtener todos los profesores
     public List<Profesor> obtenerTodos() {
-        return profesorRepositorio.findAll();
+        return profesorRepo.findAll();
     }
 
     // Método para obtener un profesor por ID
     public Profesor obtenerPorId(Long id) {
-        Optional<Profesor> profesor = profesorRepositorio.findById(id);
+        Optional<Profesor> profesor = profesorRepo.findById(id);
         return profesor.orElse(null);
     }
 
     // Método para actualizar un profesor existente
     public Profesor actualizarProfesor(Long id, Profesor profesorActualizado) {
-        Optional<Profesor> profesorOpt = profesorRepositorio.findById(id);
+        Optional<Profesor> profesorOpt = profesorRepo.findById(id);
 
         if (profesorOpt.isPresent()) {
             Profesor profesor = profesorOpt.get();
@@ -43,7 +45,7 @@ public class ProfesorServicio {
 
             // Validar otras reglas de negocio si es necesario
 
-            return profesorRepositorio.save(profesor);
+            return profesorRepo.save(profesor);
         } else {
             return null;
         }
@@ -51,10 +53,10 @@ public class ProfesorServicio {
 
     // Método para eliminar un profesor por ID
     public boolean eliminarProfesor(Long id) {
-        Optional<Profesor> profesor = profesorRepositorio.findById(id);
+        Optional<Profesor> profesor = profesorRepo.findById(id);
 
         if (profesor.isPresent()) {
-            profesorRepositorio.delete(profesor.get());
+            profesorRepo.delete(profesor.get());
             return true;
         } else {
             return false;
@@ -63,7 +65,7 @@ public class ProfesorServicio {
 
     // Método para obtener la cantidad de cursos que imparte cada profesor
     public Map<String, Integer> obtenerCantidadCursosPorProfesor() {
-        List<Profesor> profesores = profesorRepositorio.findAll();
+        List<Profesor> profesores = profesorRepo.findAll();
         Map<String, Integer> cantidadCursosPorProfesor = new HashMap<>();
 
         for (Profesor profesor : profesores) {
